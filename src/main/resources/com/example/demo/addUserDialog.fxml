@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.paint.Color?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.demo.controllers.AddUserDialogController"
+      style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #e0e0e0; -fx-border-width: 1;"
+      prefWidth="400" prefHeight="500" spacing="20">
+    
+    <effect>
+        <DropShadow radius="10" spread="0.1" color="#00000022"/>
+    </effect>
+    
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+    
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Add New User" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="✕" style="-fx-background-color: transparent; -fx-text-fill: #95a5a6; -fx-font-size: 16; -fx-font-weight: bold; -fx-cursor: hand;"
+                onAction="#handleCancel"/>
+    </HBox>
+    
+    <Separator style="-fx-background-color: #ecf0f1;"/>
+    
+    <!-- Form -->
+    <VBox spacing="20">
+        <!-- Username -->
+        <VBox spacing="5">
+            <Label text="Username" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <TextField fx:id="usernameField" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #e0e0e0; -fx-background-color: #f5f7fa; -fx-padding: 10 15 10 15;"/>
+        </VBox>
+        
+        <!-- Email -->
+        <VBox spacing="5">
+            <Label text="Email" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <TextField fx:id="emailField" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #e0e0e0; -fx-background-color: #f5f7fa; -fx-padding: 10 15 10 15;"/>
+        </VBox>
+        
+        <!-- Password -->
+        <VBox spacing="5">
+            <Label text="Password" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <PasswordField fx:id="passwordField" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #e0e0e0; -fx-background-color: #f5f7fa; -fx-padding: 10 15 10 15;"/>
+        </VBox>
+        
+        <!-- Role -->
+        <VBox spacing="5">
+            <Label text="Role" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <ComboBox fx:id="roleComboBox" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #e0e0e0; -fx-background-color: #f5f7fa; -fx-padding: 5 10 5 10;"/>
+        </VBox>
+    </VBox>
+    
+    <Region VBox.vgrow="ALWAYS"/>
+    
+    <!-- Buttons -->
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancel" onAction="#handleCancel" 
+                style="-fx-background-color: transparent; -fx-text-fill: #7f8c8d; -fx-font-weight: bold; -fx-padding: 10 20 10 20; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #e0e0e0; -fx-cursor: hand;"
+                onMouseEntered="#handleButtonHover"
+                onMouseExited="#handleButtonExit"/>
+        <Button text="Save" onAction="#handleSave" 
+                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20 10 20; -fx-background-radius: 5; -fx-cursor: hand;"
+                onMouseEntered="#handleButtonHover"
+                onMouseExited="#handleButtonExit"/>
+    </HBox>
+</VBox> 
