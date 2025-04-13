@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="10" prefHeight="400" prefWidth="500"
+      xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.esprit.ecotounsi.CategorieController">
+
+    <TableView fx:id="categorieTable" prefHeight="200" prefWidth="450">
+        <columns>
+            <TableColumn fx:id="nomColonne" text="Nom" prefWidth="150"/>
+            <TableColumn fx:id="descriptionColonne" text="Description" prefWidth="300"/>
+        </columns>
+    </TableView>
+
+    <TextField fx:id="nomField" promptText="Nom de la catégorie" />
+    <TextField fx:id="descriptionField" promptText="Description de la catégorie" />
+
+    <Button text="Ajouter" onAction="#ajouterCategorie" />
+    <Button text="Modifier" onAction="#modifierCategorie" />
+    <Button text="Supprimer" onAction="#supprimerCategorie" />
+    <Button text="Retourner" onAction="#Retourner" />
+
+</VBox>
