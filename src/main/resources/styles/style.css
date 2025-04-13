@@ -1,0 +1,55 @@
+/* Style général de la fenêtre */
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-padding: 20px;
+    -fx-background-color: #f5f5f5;
+}
+
+/* Style des champs de texte */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #BDBDBD;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* Quand le champ est focus */
+.text-field:focused {
+    -fx-border-color: #64b5f6;
+    -fx-background-color: #ffffff;
+}
+
+/* Style des ComboBox */
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #BDBDBD;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Style des boutons */
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Boutons hover */
+.button:hover {
+    -fx-background-color: #388E3C;
+}
+
+/* TableView */
+.table-view {
+    -fx-border-color: #BDBDBD;
+    -fx-background-color: white;
+}
+
+/* Colonnes */
+.table-column {
+    -fx-alignment: CENTER_LEFT;
+}

@@ -5,21 +5,35 @@ public class Produit {
     private String nom;
     private String unite;
     private int quantite;
+    private Categorie categorie;  // Relation avec la catégorie
 
-    // Constructeur sans l'ID, car l'ID est généré par la base de données
+    // Constructeur sans ID, l'ID est généré par la base de données
+    public Produit(String nom, String unite, int quantite, Categorie categorie) {
+        this.nom = nom;
+        this.unite = unite;
+        this.quantite = quantite;
+        this.categorie = categorie;
+    }
+
+    // Constructeur avec ID, utile pour la mise à jour
+    public Produit(int id, String nom, String unite, int quantite, Categorie categorie) {
+        this.id = id;
+        this.nom = nom;
+        this.unite = unite;
+        this.quantite = quantite;
+        this.categorie = categorie;
+    }
+
     public Produit(String nom, String unite, int quantite) {
         this.nom = nom;
         this.unite = unite;
         this.quantite = quantite;
     }
 
-    // Constructeur avec l'ID, utile pour la mise à jour
-    public Produit(int id, String nom, String unite, int quantite) {
-        this.id = id;
-        this.nom = nom;
-        this.unite = unite;
-        this.quantite = quantite;
+    public Produit() {
+
     }
+
 
     // Getters et setters
     public int getId() {
@@ -54,14 +68,19 @@ public class Produit {
         this.quantite = quantite;
     }
 
-    // Méthode toString pour afficher un produit
+    public Categorie getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
+
+    // Méthode toString modifiée pour inclure la catégorie
     @Override
     public String toString() {
-        return "Produit [id=" + id + ", nom=" + nom + ", unite=" + unite + ", quantite=" + quantite + "]";
+        return "Produit [id=" + id + ", nom=" + nom + ", unite=" + unite + ", quantite=" + quantite
+                + ", categorie=" + (categorie != null ? categorie.getNom() : "Aucune") + "]";
     }
 
 }
-
-
-
-

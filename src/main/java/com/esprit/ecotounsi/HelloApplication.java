@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
+import javafx.beans.property.SimpleStringProperty;
 
 public class HelloApplication extends Application {
     private ProduitDAO produitDAO = new ProduitDAO();
@@ -34,7 +35,13 @@ public class HelloApplication extends Application {
         TableColumn<Produit, Integer> quantiteCol = new TableColumn<>("Quantité");
         quantiteCol.setCellValueFactory(new PropertyValueFactory<>("quantite"));
 
-        tableView.getColumns().addAll(nomCol, uniteCol, quantiteCol);
+        TableColumn<Produit, String> categorieCol = new TableColumn<>("Catégorie");
+        categorieCol.setCellValueFactory(cellData -> {
+            Categorie categorie = cellData.getValue().getCategorie();
+            return new SimpleStringProperty(categorie != null ? categorie.getNom() : "Aucune catégorie");
+        });
+
+        tableView.getColumns().addAll(nomCol, uniteCol, quantiteCol, categorieCol);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         refreshTable();
 
@@ -48,6 +55,13 @@ public class HelloApplication extends Application {
         TextField quantiteField = new TextField();
         quantiteField.setPromptText("Quantité du produit");
 
+        // Sélectionner la catégorie à partir d'une liste (à implémenter)
+        ComboBox<Categorie> categorieComboBox = new ComboBox<>();
+        categorieComboBox.setPromptText("Sélectionner une catégorie");
+
+        // Récupérer toutes les catégories depuis la base de données
+        categorieComboBox.setItems(FXCollections.observableArrayList(produitDAO.getAllCategories()));
+
         // Ajout
         Button btnAjouter = new Button("Ajouter un produit");
         btnAjouter.setOnAction(e -> {
@@ -55,17 +69,18 @@ public class HelloApplication extends Application {
                 String nom = nomField.getText();
                 String unite = uniteField.getText();
                 int quantite = Integer.parseInt(quantiteField.getText());
+                Categorie categorie = categorieComboBox.getValue();
 
-                if (nom.isEmpty() || unite.isEmpty()) {
+                if (nom.isEmpty() || unite.isEmpty() || categorie == null) {
                     showErrorDialog("Tous les champs doivent être remplis.");
                     return;
                 }
 
-                Produit nouveauProduit = new Produit(nom, unite, quantite);
+                Produit nouveauProduit = new Produit(nom, unite, quantite, categorie);
                 if (produitDAO.addProduit(nouveauProduit)) {
                     showInfoDialog("Produit inséré avec succès !");
                     refreshTable();
-                    clearForm(nomField, uniteField, quantiteField);
+                    clearForm(nomField, uniteField, quantiteField, categorieComboBox);
                 } else {
                     showErrorDialog("Erreur lors de l'ajout.");
                 }
@@ -93,8 +108,9 @@ public class HelloApplication extends Application {
                     String nom = nomField.getText();
                     String unite = uniteField.getText();
                     int quantite = Integer.parseInt(quantiteField.getText());
+                    Categorie categorie = categorieComboBox.getValue();
 
-                    if (nom.isEmpty() || unite.isEmpty()) {
+                    if (nom.isEmpty() || unite.isEmpty() || categorie == null) {
                         showErrorDialog("Tous les champs doivent être remplis.");
                         return;
                     }
@@ -102,10 +118,11 @@ public class HelloApplication extends Application {
                     produitSelectionne.setNom(nom);
                     produitSelectionne.setUnite(unite);
                     produitSelectionne.setQuantite(quantite);
+                    produitSelectionne.setCategorie(categorie);
 
                     if (produitDAO.updateProduit(produitSelectionne)) {
                         refreshTable();
-                        clearForm(nomField, uniteField, quantiteField);
+                        clearForm(nomField, uniteField, quantiteField, categorieComboBox);
                         produitSelectionne = null;
                     } else {
                         showErrorDialog("Erreur de mise à jour.");
@@ -129,10 +146,11 @@ public class HelloApplication extends Application {
                 nomField.setText(newSel.getNom());
                 uniteField.setText(newSel.getUnite());
                 quantiteField.setText(String.valueOf(newSel.getQuantite()));
+                categorieComboBox.setValue(newSel.getCategorie());
             }
         });
 
-        VBox vbox = new VBox(10, tableView, nomField, uniteField, quantiteField,
+        VBox vbox = new VBox(10, tableView, nomField, uniteField, quantiteField, categorieComboBox,
                 btnAjouter, btnSupprimer, btnMettreAJour, btnAllerVersCategorie);
         Scene scene = new Scene(vbox, 500, 500);
         primaryStage.setScene(scene);
@@ -145,10 +163,11 @@ public class HelloApplication extends Application {
         tableView.setItems(observableList);
     }
 
-    private void clearForm(TextField nomField, TextField uniteField, TextField quantiteField) {
+    private void clearForm(TextField nomField, TextField uniteField, TextField quantiteField, ComboBox<Categorie> categorieComboBox) {
         nomField.clear();
         uniteField.clear();
         quantiteField.clear();
+        categorieComboBox.getSelectionModel().clearSelection();
     }
 
     private void showErrorDialog(String message) {
