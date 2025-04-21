@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.AfficherLivraisonsController">
+    <VBox spacing="10">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <Label text="Liste des Livraisons" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+        <TableView fx:id="tableView">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="50" />
+                <TableColumn fx:id="produitColumn" text="Produit" prefWidth="100" />
+                <TableColumn fx:id="poidsColumn" text="Poids" prefWidth="80" />
+                <TableColumn fx:id="dateColumn" text="Date" prefWidth="100" />
+                <TableColumn fx:id="societeColumn" text="Société" prefWidth="120" />
+            </columns>
+        </TableView>
+    </VBox>
+</AnchorPane>

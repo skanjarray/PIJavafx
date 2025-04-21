@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.AjouterLivraisonController">
+    <VBox spacing="10">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <Label text="Ajouter Livraison" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+        <DatePicker fx:id="dateField" promptText="Date de livraison" />
+        <TextField fx:id="poidsField" promptText="Poids" />
+        <TextField fx:id="produitField" promptText="Produit" />
+        <ComboBox fx:id="societeCombo" promptText="Société de Recyclage" />
+
+        <Button text="Ajouter" onAction="#ajouterLivraison" />
+    </VBox>
+</AnchorPane>

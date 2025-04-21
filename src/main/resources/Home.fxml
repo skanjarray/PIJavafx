@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.HomeController">
+    <VBox alignment="CENTER" spacing="15">
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40"/>
+        </padding>
+
+        <Label text="Gestion des Livraisons et Sociétés" style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+
+        <!-- LIVRAISONS -->
+        <Button text="Ajouter Livraison" onAction="#goToAjouterLivraison" prefWidth="200" />
+        <Button text="Modifier Livraison" onAction="#goToModifierLivraison" prefWidth="200" />
+        <Button text="Afficher Livraisons" onAction="#goToAfficherLivraisons" prefWidth="200" />
+
+        <!-- SOCIÉTÉS -->
+        <Separator />
+        <Button text="Ajouter Société" onAction="#goToAjouterSociete" prefWidth="200" />
+        <Button text="Modifier Société" onAction="#goToModifierSociete" prefWidth="200" />
+        <Button text="Afficher Sociétés" onAction="#goToAfficherSocietes" prefWidth="200" />
+    </VBox>
+</AnchorPane>

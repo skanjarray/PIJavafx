@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.AfficherSocietesRecyclageController">
+    <VBox spacing="10" padding="20">
+        <Label text="Liste des Sociétés de Recyclage" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+        <TableView fx:id="tableView">
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="50" />
+            <TableColumn fx:id="nomColumn" text="Nom" prefWidth="120" />
+            <TableColumn fx:id="adresseColumn" text="Adresse" prefWidth="150" />
+            <TableColumn fx:id="emailColumn" text="Email" prefWidth="150" />
+        </TableView>
+    </VBox>
+</AnchorPane>

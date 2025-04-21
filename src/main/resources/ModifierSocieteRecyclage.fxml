@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.ModifierSocieteRecyclageController">
+    <VBox spacing="10">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+        <Label text="Modifier Société de Recyclage" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+        <TextField fx:id="idField" promptText="ID de la société à modifier" />
+        <TextField fx:id="nomField" promptText="Nom" />
+        <TextField fx:id="adresseField" promptText="Adresse" />
+        <TextField fx:id="emailField" promptText="Email" />
+
+        <Button text="Modifier" onAction="#modifierSociete" />
+    </VBox>
+</AnchorPane>
