@@ -10,7 +10,7 @@ import service.SocieteRecyclageService;
 
 import java.time.LocalDate;
 
-public class ModifierLivraisonController {
+public class ModifierLivraisonController extends BaseController {
 
     @FXML private TextField idField;
     @FXML private DatePicker dateField;

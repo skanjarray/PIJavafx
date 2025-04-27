@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.AfficherLivraisonsController"
+            fx:controller="controllers.AfficherSocietesRecyclageController"
             stylesheets="@styles.css">
 
     <!-- Top Header Bar -->
@@ -23,15 +23,20 @@
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
 
-            <Label text="Liste des Livraisons" styleClass="page-title"/>
+            <Label text="Liste des Sociétés de Recyclage" styleClass="page-title"/>
+
+            <!-- Search Box -->
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 0 0 15 0;">
+                <Label text="Rechercher:" styleClass="form-label"/>
+                <TextField fx:id="searchField" promptText="Nom, adresse ou email" styleClass="search-box" HBox.hgrow="ALWAYS"/>
+            </HBox>
 
             <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
-                    <TableColumn fx:id="produitColumn" text="Produit" prefWidth="150"/>
-                    <TableColumn fx:id="poidsColumn" text="Poids (kg)" prefWidth="100"/>
-                    <TableColumn fx:id="dateColumn" text="Date" prefWidth="150"/>
-                    <TableColumn fx:id="societeColumn" text="Société" prefWidth="150"/>
+                    <TableColumn fx:id="nomColumn" text="Nom" prefWidth="150"/>
+                    <TableColumn fx:id="adresseColumn" text="Adresse" prefWidth="200"/>
+                    <TableColumn fx:id="emailColumn" text="Email" prefWidth="200"/>
                     <TableColumn fx:id="qrCodeColumn" text="QR Code" prefWidth="150"/>
                 </columns>
                 <columnResizePolicy>

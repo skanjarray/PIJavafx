@@ -1,27 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.HomeController">
-    <VBox alignment="CENTER" spacing="15">
-        <padding>
-            <Insets top="40" right="40" bottom="40" left="40"/>
-        </padding>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.HomeController"
+            stylesheets="@styles.css">
 
-        <Label text="Gestion des Livraisons et Sociétés" style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+    <!-- Left Sidebar -->
+    <left>
+        <VBox styleClass="sidebar">
+            <Label text="Bonjour! Je suis EcoBot, votre assistant" styleClass="sidebar-title"/>
+            <VBox styleClass="nav-section">
+                <Label text="Navigation" styleClass="nav-section-title"/>
+                <Button text="Accueil" onAction="#goToHome" styleClass="nav-button active"/>
+                <Button text="Ajouter Livraison" onAction="#goToAjouterLivraison" styleClass="nav-button"/>
+                <Button text="Ajouter Société" onAction="#goToAjouterSocieteRecyclage" styleClass="nav-button"/>
+                <Button text="Afficher Livraisons" onAction="#goToAfficherLivraisons" styleClass="nav-button"/>
+                <Button text="Afficher Sociétés" onAction="#goToAfficherSocietesRecyclage" styleClass="nav-button"/>
+                <Button text="Modifier Livraison" onAction="#goToModifierLivraison" styleClass="nav-button"/>
+                <Button text="Modifier Société" onAction="#goToModifierSocieteRecyclage" styleClass="nav-button"/>
+                <Button text="Supprimer Livraison" onAction="#goToSupprimerLivraison" styleClass="nav-button"/>
+                <Button text="Supprimer Société" onAction="#goToSupprimerSocieteRecyclage" styleClass="nav-button"/>
+                <Button text="Assistant Chatbot" onAction="#goToChatbot" styleClass="nav-button"/>
+            </VBox>
+        </VBox>
+    </left>
 
-        <!-- LIVRAISONS -->
-        <Button text="Ajouter Livraison" onAction="#goToAjouterLivraison" prefWidth="200" />
-        <Button text="Modifier Livraison" onAction="#goToModifierLivraison" prefWidth="200" />
-        <Button text="Afficher Livraisons" onAction="#goToAfficherLivraisons" prefWidth="200" />
+    <!-- Top Header Bar -->
+    <top>
+        <HBox styleClass="header-bar">
+            <Label text="EcoRecycle" styleClass="app-title"/>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="Système de Gestion de Recyclage" styleClass="app-subtitle"/>
+        </HBox>
+    </top>
 
-        <!-- SOCIÉTÉS -->
-        <Separator />
-        <Button text="Ajouter Société" onAction="#goToAjouterSociete" prefWidth="200" />
-        <Button text="Modifier Société" onAction="#goToModifierSociete" prefWidth="200" />
-        <Button text="Afficher Sociétés" onAction="#goToAfficherSocietes" prefWidth="200" />
-    </VBox>
-</AnchorPane>
+    <!-- Center Content (loaded dynamically) -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="content-scroll">
+            <VBox styleClass="content-area" spacing="30">
+                <padding>
+                    <Insets top="30" right="30" bottom="30" left="30"/>
+                </padding>
+
+                <!-- Welcome Section -->
+                <VBox alignment="CENTER" spacing="15">
+                    <Label text="Bienvenue dans EcoRecycle" styleClass="welcome-title"/>
+                    <Label text="Système de Gestion pour le Recyclage Durable" styleClass="welcome-subtitle"/>
+                </VBox>
+
+                <!-- Livraisons Section -->
+                <VBox styleClass="section-container" spacing="15">
+                    <Label text="Gestion des Livraisons" styleClass="section-title"/>
+
+                    <GridPane hgap="15" vgap="15">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50" />
+                            <ColumnConstraints percentWidth="50" />
+                        </columnConstraints>
+
+                        <Button text="Ajouter Livraison" onAction="#goToAjouterLivraison"
+                                styleClass="primary-button" maxWidth="Infinity"
+                                GridPane.columnIndex="0" GridPane.rowIndex="0" />
+
+                        <Button text="Afficher Livraisons" onAction="#goToAfficherLivraisons"
+                                styleClass="primary-button" maxWidth="Infinity"
+                                GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                        <Button text="Modifier Livraison" onAction="#goToModifierLivraison"
+                                styleClass="primary-button" maxWidth="Infinity"
+                                GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+                        <Button text="Supprimer Livraison" onAction="#goToSupprimerLivraison"
+                                styleClass="primary-button" maxWidth="Infinity"
+                                GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    </GridPane>
+                </VBox>
+
+                <!-- Sociétés de Recyclage Section -->
+                <VBox styleClass="section-container" spacing="15">
+                    <Label text="Gestion des Sociétés de Recyclage" styleClass="section-title"/>
+
+                    <GridPane hgap="15" vgap="15">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50" />
+                            <ColumnConstraints percentWidth="50" />
+                        </columnConstraints>
+
+                        <Button text="Ajouter Société" onAction="#goToAjouterSocieteRecyclage"
+                                styleClass="secondary-button" maxWidth="Infinity"
+                                GridPane.columnIndex="0" GridPane.rowIndex="0" />
+
+                        <Button text="Afficher Sociétés" onAction="#goToAfficherSocietesRecyclage"
+                                styleClass="secondary-button" maxWidth="Infinity"
+                                GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                        <Button text="Modifier Société" onAction="#goToModifierSocieteRecyclage"
+                                styleClass="secondary-button" maxWidth="Infinity"
+                                GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+                        <Button text="Supprimer Société" onAction="#goToSupprimerSocieteRecyclage"
+                                styleClass="secondary-button" maxWidth="Infinity"
+                                GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    </GridPane>
+                </VBox>
+
+                <!-- Assistance Section -->
+                <VBox styleClass="section-container" spacing="15">
+                    <Label text="Assistance et Ressources" styleClass="section-title"/>
+
+                    <Button text="EcoBot - Assistant de Recyclage" onAction="#goToChatbot"
+                            styleClass="accent-button" maxWidth="Infinity" />
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Footer -->
+    <bottom>
+        <HBox styleClass="footer-bar">
+            <Label text="© 2024 EcoRecycle - Système de Gestion" styleClass="footer-text"/>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="v1.0" styleClass="footer-text"/>
+        </HBox>
+    </bottom>
+</BorderPane>

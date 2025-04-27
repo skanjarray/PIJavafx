@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.ModifierSocieteRecyclageController"
+            fx:controller="controllers.SupprimerSocieteRecyclageController"
             stylesheets="@styles.css">
 
     <!-- Top Header Bar -->
@@ -24,29 +24,14 @@
             </padding>
 
             <VBox styleClass="form-container" maxWidth="500" spacing="15">
-                <Label text="Modifier Société de Recyclage" styleClass="page-title"/>
+                <Label text="Supprimer Société de Recyclage" styleClass="page-title"/>
 
                 <VBox styleClass="form-group">
                     <Label text="ID Société" styleClass="form-label"/>
-                    <TextField fx:id="idField" promptText="ID de la société à modifier" maxWidth="Infinity"/>
+                    <TextField fx:id="idField" promptText="ID de la société à supprimer" maxWidth="Infinity"/>
                 </VBox>
 
-                <VBox styleClass="form-group">
-                    <Label text="Nom" styleClass="form-label"/>
-                    <TextField fx:id="nomField" promptText="Nom" maxWidth="Infinity"/>
-                </VBox>
-
-                <VBox styleClass="form-group">
-                    <Label text="Adresse" styleClass="form-label"/>
-                    <TextField fx:id="adresseField" promptText="Adresse" maxWidth="Infinity"/>
-                </VBox>
-
-                <VBox styleClass="form-group">
-                    <Label text="Email" styleClass="form-label"/>
-                    <TextField fx:id="emailField" promptText="Email" maxWidth="Infinity"/>
-                </VBox>
-
-                <Button text="Modifier" onAction="#modifierSociete" styleClass="secondary-button" maxWidth="Infinity"/>
+                <Button text="Supprimer" onAction="#supprimerSociete" styleClass="primary-button" maxWidth="Infinity"/>
 
                 <!-- Back to Home Button -->
                 <Button text="Retour à l'accueil" onAction="#goToHome" styleClass="outline-button" maxWidth="Infinity"/>

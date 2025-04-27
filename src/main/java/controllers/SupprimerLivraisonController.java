@@ -5,7 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import service.LivraisonService;
 
-public class SupprimerLivraisonController {
+public class SupprimerLivraisonController extends BaseController {
 
     @FXML private TextField idField;
 

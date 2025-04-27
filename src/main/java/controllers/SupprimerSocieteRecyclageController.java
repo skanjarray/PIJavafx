@@ -5,7 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import service.SocieteRecyclageService;
 
-public class SupprimerSocieteRecyclageController {
+public class SupprimerSocieteRecyclageController extends BaseController {
 
     @FXML private TextField idField;
 

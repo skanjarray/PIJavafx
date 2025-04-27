@@ -6,7 +6,7 @@ import javafx.event.ActionEvent;
 import models.SocieteRecyclage;
 import service.SocieteRecyclageService;
 
-public class ModifierSocieteRecyclageController {
+public class ModifierSocieteRecyclageController extends BaseController {
 
     @FXML private TextField idField;
     @FXML private TextField nomField;

@@ -4,20 +4,67 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ModifierLivraisonController">
-    <children>
-        <VBox alignment="CENTER" spacing="10.0" AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
-            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.ModifierLivraisonController"
+            stylesheets="@styles.css">
 
-            <Label text="Modifier Livraison" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <!-- Top Header Bar -->
+    <top>
+        <HBox styleClass="header-bar">
+            <Label text="EcoRecycle" styleClass="app-title"/>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="Système de Gestion de Recyclage" styleClass="app-subtitle"/>
+        </HBox>
+    </top>
 
-            <TextField fx:id="idField" promptText="ID Livraison"/>
-            <DatePicker fx:id="dateField" promptText="Date de livraison"/>
-            <TextField fx:id="poidsField" promptText="Poids"/>
-            <TextField fx:id="produitField" promptText="Produit"/>
-            <ComboBox fx:id="societeCombo" promptText="Société de Recyclage"/>
+    <center>
+        <VBox styleClass="content-area" alignment="CENTER">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
 
-            <Button text="Modifier" onAction="#modifierLivraison"/>
+            <VBox styleClass="form-container" maxWidth="500" spacing="15">
+                <Label text="Modifier Livraison" styleClass="page-title"/>
+
+                <VBox styleClass="form-group">
+                    <Label text="ID Livraison" styleClass="form-label"/>
+                    <TextField fx:id="idField" promptText="ID de la livraison à modifier" maxWidth="Infinity"/>
+                </VBox>
+
+                <VBox styleClass="form-group">
+                    <Label text="Date de livraison" styleClass="form-label"/>
+                    <DatePicker fx:id="dateField" promptText="Date de livraison" maxWidth="Infinity"/>
+                </VBox>
+
+                <VBox styleClass="form-group">
+                    <Label text="Poids (kg)" styleClass="form-label"/>
+                    <TextField fx:id="poidsField" promptText="Poids" maxWidth="Infinity"/>
+                </VBox>
+
+                <VBox styleClass="form-group">
+                    <Label text="Produit" styleClass="form-label"/>
+                    <TextField fx:id="produitField" promptText="Produit" maxWidth="Infinity"/>
+                </VBox>
+
+                <VBox styleClass="form-group">
+                    <Label text="Société de Recyclage" styleClass="form-label"/>
+                    <ComboBox fx:id="societeCombo" promptText="Société de Recyclage" maxWidth="Infinity"/>
+                </VBox>
+
+                <Button text="Modifier" onAction="#modifierLivraison" styleClass="secondary-button" maxWidth="Infinity"/>
+
+                <!-- Back to Home Button -->
+                <Button text="Retour à l'accueil" onAction="#goToHome" styleClass="outline-button" maxWidth="Infinity"/>
+            </VBox>
         </VBox>
-    </children>
-</AnchorPane>
+    </center>
+
+    <!-- Footer -->
+    <bottom>
+        <HBox styleClass="footer-bar">
+            <Label text="© 2024 EcoRecycle - Système de Gestion" styleClass="footer-text"/>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="v1.0" styleClass="footer-text"/>
+        </HBox>
+    </bottom>
+</BorderPane>
