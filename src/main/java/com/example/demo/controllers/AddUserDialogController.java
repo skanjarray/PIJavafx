@@ -22,8 +22,8 @@ public class AddUserDialogController {
     @FXML
     public void initialize() {
         // Initialize role options
-        roleComboBox.getItems().addAll("USER", "ADMIN");
-        roleComboBox.setValue("USER");
+        roleComboBox.getItems().addAll("ROLE_CLIENT", "ROLE_ADMIN");
+        roleComboBox.setValue("ROLE_CLIENT");
     }
 
     public void setUserService(UserService userService) {

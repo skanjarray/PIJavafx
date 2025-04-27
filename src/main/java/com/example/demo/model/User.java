@@ -27,11 +27,11 @@ public class User {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public User(String username, String email, String plainPassword, String role) {
+    public User(String username, String email, String password, String role) {
         this();
         this.username = username;
         this.email = email;
-        this.setPlainPassword(plainPassword);
+        this.password = password; // Store password directly (already hashed)
         this.role = role;
     }
 
@@ -44,7 +44,29 @@ public class User {
     }
 
     public boolean verifyPassword(String plainPassword) {
-        return BCrypt.checkpw(plainPassword, this.password);
+        if (plainPassword == null || this.password == null) {
+            return false;
+        }
+        try {
+            return BCrypt.checkpw(plainPassword, this.password);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error verifying password: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public void setPassword(String password) {
+        // If the password is already hashed (starts with $2a$), store it directly
+        if (password != null && password.startsWith("$2a$")) {
+            this.password = password;
+        } else {
+            // Otherwise, hash it
+            this.password = hashPassword(password);
+        }
+    }
+
+    public void setPlainPassword(String plainPassword) {
+        this.password = hashPassword(plainPassword);
     }
 
     // Getters and Setters
@@ -74,14 +96,6 @@ public class User {
 
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String hashedPassword) {
-        this.password = hashedPassword;
-    }
-
-    public void setPlainPassword(String plainPassword) {
-        this.password = hashPassword(plainPassword);
     }
 
     public String getRole() {

@@ -10,7 +10,9 @@
 <BorderPane xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.demo.controllers.AddUserController"
-            style="-fx-background-color: #f5f7fa;">
+            style="-fx-background-color: #f5f7fa;"
+            prefWidth="1400" prefHeight="800">
+
     
     <!-- Left Sidebar -->
     <left>
@@ -33,6 +35,10 @@
             <Button text="⚙ Settings" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 10 15 10 15; -fx-min-width: 150; -fx-cursor: hand;"
                     onMouseEntered="#handleButtonHover"
                     onMouseExited="#handleButtonExit"/>
+
+            <Button fx:id="logoutButton" text="Logout"
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;"
+                    onAction="#handleLogout"/>
             
             <Region VBox.vgrow="ALWAYS"/>
             
@@ -47,23 +53,24 @@
             <HBox alignment="CENTER_LEFT" spacing="10">
                 <Label text="User Management" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
                 <Region HBox.hgrow="ALWAYS"/>
-                <Button text="+ Add User" fx:id="addButton" onAction="#showAddUserDialog" 
-                        style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20 10 20; -fx-background-radius: 5; -fx-cursor: hand;"
-                        onMouseEntered="#handleButtonHover"
-                        onMouseExited="#handleButtonExit"/>
+
             </HBox>
-            
+
             <!-- Search and Filter -->
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <TextField fx:id="searchField" promptText="Search users..." prefWidth="300" 
-                          style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #e0e0e0; -fx-background-color: white; -fx-padding: 8 12 8 12;"/>
-                <Button text="🔍 Search" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 8 15 8 15; -fx-background-radius: 5; -fx-cursor: hand;"
+                <TextField fx:id="searchField" promptText="Search users..." prefWidth="300"
+                          style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #e0e0e0; -fx-background-color: white; -fx-padding: 8 12 8 12;"
+                          onKeyReleased="#handleSearch"/>
+                <Button fx:id="searchButton" text="🔍 Search" onAction="#handleSearch"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 8 15 8 15; -fx-background-radius: 5; -fx-cursor: hand;"
                         onMouseEntered="#handleButtonHover"
                         onMouseExited="#handleButtonExit"/>
                 <Region HBox.hgrow="ALWAYS"/>
-                <ComboBox promptText="Filter by role" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #e0e0e0; -fx-background-color: white; -fx-padding: 5 10 5 10;"/>
+                <ComboBox fx:id="roleFilterComboBox" promptText="Filter by role"
+                         style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #e0e0e0; -fx-background-color: white; -fx-padding: 5 10 5 10;"
+                         onAction="#handleRoleFilter"/>
             </HBox>
-            
+
             <!-- Users Table -->
             <TableView fx:id="userTable" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #e0e0e0;">
                 <effect>
@@ -108,22 +115,20 @@
                     </TableColumn>
                 </columns>
             </TableView>
-            
+
             <!-- Action Buttons -->
-            <HBox spacing="10" alignment="CENTER_RIGHT">
-                <Button text="👁 View Details" fx:id="viewButton"
-                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 8 15 8 15; -fx-background-radius: 5; -fx-cursor: hand;"
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Button text="+ Add User" fx:id="addButton" onAction="#showAddUserDialog"
+                        style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20 10 20; -fx-background-radius: 5; -fx-cursor: hand;"
                         onMouseEntered="#handleButtonHover"
                         onMouseExited="#handleButtonExit"/>
-                <Button text="✎ Edit" fx:id="editButton" onAction="#handleEditUser"
-                        style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-padding: 8 15 8 15; -fx-background-radius: 5; -fx-cursor: hand;"
-                        onMouseEntered="#handleButtonHover"
-                        onMouseExited="#handleButtonExit"/>
-                <Button text="🗑 Delete" fx:id="deleteButton" onAction="#handleDeleteButton"
-                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 8 15 8 15; -fx-background-radius: 5; -fx-cursor: hand;"
+                
+                <Button text="📄 Export PDF" fx:id="exportPdfButton" onAction="#handleExportPDF"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20 10 20; -fx-background-radius: 5; -fx-cursor: hand;"
                         onMouseEntered="#handleButtonHover"
                         onMouseExited="#handleButtonExit"/>
             </HBox>
+
         </VBox>
     </center>
     

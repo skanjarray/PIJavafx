@@ -1,0 +1,123 @@
+/* General Styles */
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-background-color: #f5f6fa;
+}
+
+/* Sidebar Styles */
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 15 10 15;
+    -fx-min-width: 150;
+    -fx-cursor: hand;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: #34495e;
+}
+
+.logout-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e74c3c;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 15 10 15;
+    -fx-min-width: 150;
+    -fx-cursor: hand;
+}
+
+.logout-button:hover {
+    -fx-background-color: #34495e;
+}
+
+/* Action Button Styles */
+.action-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.action-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.action-button:pressed {
+    -fx-background-color: #2472a4;
+}
+
+/* Label Styles */
+.label {
+    -fx-text-fill: #2c3e50;
+}
+
+/* GridPane Styles */
+.grid-pane {
+    -fx-padding: 10;
+}
+
+/* Card Styles */
+.vbox {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+/* Welcome Label */
+#welcomeLabel {
+    -fx-text-fill: #2c3e50;
+}
+
+/* User Info Labels */
+#usernameLabel, #emailLabel, #roleLabel {
+    -fx-font-weight: bold;
+}
+
+.header {
+    -fx-background-color: #2c3e50;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+.welcome-label {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.content-grid {
+    -fx-padding: 20;
+    -fx-hgap: 20;
+    -fx-vgap: 20;
+}
+
+.info-card, .actions-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+.card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+#logoutButton {
+    -fx-background-color: #e74c3c;
+}
+
+#logoutButton:hover {
+    -fx-background-color: #c0392b;
+}
+
+#logoutButton:pressed {
+    -fx-background-color: #a93226;
+}
+
+Label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2c3e50;
+} 

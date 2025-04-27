@@ -139,13 +139,59 @@ public class UserService implements IService<User> {
         return null;
     }
 
-    public boolean verifyUserCredentials(String usernameOrEmail, String plainPassword) throws SQLException {
-        User user = getByUsername(usernameOrEmail);
+    public User verifyUserCredentials(String usernameOrEmail, String plainPassword) throws SQLException {
+        System.out.println("Attempting to verify credentials for: " + usernameOrEmail);
+        
+        User user = findByUsernameOrEmail(usernameOrEmail);
+        
         if (user == null) {
-            user = getByEmail(usernameOrEmail);
+            System.out.println("User not found by username or email");
+            return null;
         }
 
-        return user != null && BCrypt.checkpw(plainPassword, user.getPassword());
+        System.out.println("Found user: " + user.getUsername() + " with role: " + user.getRole());
+        System.out.println("Stored password hash: " + user.getPassword());
+        System.out.println("Attempting to verify password...");
+        
+        try {
+            // Verify the password directly using BCrypt
+            boolean passwordMatches = BCrypt.checkpw(plainPassword, user.getPassword());
+            System.out.println("Password verification result: " + passwordMatches);
+            
+            if (!passwordMatches) {
+                System.out.println("Password verification failed. Please check your credentials.");
+            }
+            
+            return passwordMatches ? user : null;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error verifying password: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public User findByUsernameOrEmail(String usernameOrEmail) throws SQLException {
+        String query = "SELECT * FROM user WHERE username = ? OR email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, usernameOrEmail);
+            statement.setString(2, usernameOrEmail);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return mapResultSetToUser(resultSet);
+            }
+        }
+        return null;
+    }
+
+    public User findByEmail(String email) throws SQLException {
+        String query = "SELECT * FROM user WHERE email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return mapResultSetToUser(resultSet);
+            }
+        }
+        return null;
     }
 
     private User mapResultSetToUser(ResultSet resultSet) throws SQLException {

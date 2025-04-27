@@ -1,0 +1,10 @@
+            <Button mnemonicParsing="false" onAction="#handleAddUser" text="Add User">
+               <graphic>
+                  <FontAwesomeIconView glyphName="PLUS" />
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleExportPDF" text="Export PDF">
+               <graphic>
+                  <FontAwesomeIconView glyphName="FILE_PDF" />
+               </graphic>
+            </Button> 

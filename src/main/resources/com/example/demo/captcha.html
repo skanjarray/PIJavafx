@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f5f7fa;
+        }
+        .h-captcha { 
+            transform: scale(0.9); 
+            transform-origin: 0 0; 
+        }
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 10px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="h-captcha" 
+             data-sitekey="88ac62a8-f07e-4ae0-8b32-274838befed2"
+             data-callback="onHCaptchaComplete"
+             data-error-callback="onHCaptchaError"
+             data-size="normal"
+             data-theme="light">
+        </div>
+        <div id="error" class="error-message"></div>
+    </div>
+    <script>
+        // Store the response globally
+        let captchaResponse = null;
+
+        function onHCaptchaComplete(response) {
+            console.log('CAPTCHA completed with response:', response);
+            captchaResponse = response;
+            
+            // Ensure the Java callback is available
+            if (typeof window.java !== 'undefined' && window.java.onHCaptchaComplete) {
+                console.log('Calling Java callback with response');
+                window.java.onHCaptchaComplete(response);
+            } else {
+                console.error('Java callback not available');
+                document.getElementById('error').textContent = 'Error: Java callback not available';
+            }
+        }
+
+        function onHCaptchaError(error) {
+            console.error('hCaptcha error:', error);
+            document.getElementById('error').textContent = 'Error loading CAPTCHA. Please refresh the page.';
+            captchaResponse = null;
+        }
+
+        // Add error handling for script loading
+        window.onerror = function(msg, url, line) {
+            console.error('Error:', msg, 'at line', line);
+            document.getElementById('error').textContent = 'Error loading CAPTCHA. Please refresh the page.';
+            captchaResponse = null;
+            return false;
+        };
+
+        // Expose the response to Java
+        window.getCaptchaResponse = function() {
+            return captchaResponse;
+        };
+
+        // Log when the page is fully loaded
+        window.addEventListener('load', function() {
+            console.log('Page fully loaded');
+            console.log('Java object available:', typeof window.java !== 'undefined');
+            console.log('Java callback available:', typeof window.java !== 'undefined' && typeof window.java.onHCaptchaComplete === 'function');
+        });
+    </script>
+</body>
+</html> 

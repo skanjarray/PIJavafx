@@ -1,5 +1,5 @@
 package com.example.demo.controllers;
-
+import com.example.demo.utils.SessionManager;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import javafx.collections.FXCollections;
@@ -19,8 +19,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.geometry.Pos;
 import javafx.util.Callback;
-
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.UnitValue;
+import javafx.stage.FileChooser;
+import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,7 +40,11 @@ import java.util.Optional;
 
 public class AddUserController {
 
+
+
     @FXML private TextField searchField;
+    @FXML private Button searchButton;
+    @FXML private ComboBox<String> roleFilterComboBox;
     @FXML private Button addButton;
     @FXML private TableView<User> userTable;
     @FXML private TableColumn<User, Integer> idColumn;
@@ -36,20 +52,26 @@ public class AddUserController {
     @FXML private TableColumn<User, String> emailColumn;
     @FXML private TableColumn<User, String> roleColumn;
     @FXML private TableColumn<User, Void> actionsColumn;
-    @FXML private Button viewButton;
+
     @FXML private Button editButton;
     @FXML private Button deleteButton;
     @FXML private Label statusLabel;
+    @FXML private Button logoutButton;
+
+    private SessionManager sessionManager;
 
     private UserService userService;
     private ObservableList<User> userList = FXCollections.observableArrayList();
+    private ObservableList<User> filteredList = FXCollections.observableArrayList();
 
     public void initialize(Connection connection) {
+        sessionManager = SessionManager.getInstance();
         this.userService = new UserService(connection);
         setupTableColumns();
+        setupRoleFilter();
         loadUserData();
-        setupButtonActions();
-        setupTableSelection();
+
+        logoutButton.setOnAction(event -> handleLogout());
     }
 
     private void setupTableColumns() {
@@ -117,15 +139,53 @@ public class AddUserController {
         System.out.println("Table columns setup completed");
     }
 
+    private void setupRoleFilter() {
+        roleFilterComboBox.setItems(FXCollections.observableArrayList("All", "ROLE_ADMIN", "ROLE_CLIENT"));
+        roleFilterComboBox.setValue("All");
+    }
+
+    @FXML
+    private void handleSearch() {
+        String searchText = searchField.getText().toLowerCase();
+        String selectedRole = roleFilterComboBox.getValue();
+        
+        filteredList.clear();
+        
+        for (User user : userList) {
+            boolean matchesSearch = searchText.isEmpty() ||
+                    user.getUsername().toLowerCase().contains(searchText) ||
+                    user.getEmail().toLowerCase().contains(searchText);
+                    
+            boolean matchesRole = selectedRole.equals("All") ||
+                    user.getRole().equals(selectedRole);
+            
+            if (matchesSearch && matchesRole) {
+                filteredList.add(user);
+            }
+        }
+        
+        userTable.setItems(filteredList);
+        statusLabel.setText("Found " + filteredList.size() + " users");
+    }
+
+    @FXML
+    private void handleRoleFilter() {
+        handleSearch(); // Reapply search with new role filter
+    }
+
     private void loadUserData() {
         try {
             userList.clear();
+            filteredList.clear(); // ✨ ADD THIS LINE ✨
+
             List<User> users = userService.getAll();
             System.out.println("Loaded users from database: " + users.size());
             for (User user : users) {
                 System.out.println("User: " + user.getId() + " - " + user.getUsername() + " - " + user.getEmail() + " - " + user.getRole());
             }
             userList.addAll(users);
+            filteredList.addAll(users);
+            userTable.setItems(filteredList);
             statusLabel.setText("Loaded " + userList.size() + " users");
         } catch (SQLException e) {
             System.err.println("Error loading users: " + e.getMessage());
@@ -135,39 +195,7 @@ public class AddUserController {
         }
     }
 
-    private void setupButtonActions() {
-        addButton.setOnAction(event -> showAddUserDialog());
 
-        viewButton.setOnAction(event -> {
-            User selected = userTable.getSelectionModel().getSelectedItem();
-            if (selected != null) {
-                showUserDetails(selected);
-            }
-        });
-
-        editButton.setOnAction(event -> {
-            User selected = userTable.getSelectionModel().getSelectedItem();
-            if (selected != null) {
-                showEditUserDialog(selected);
-            }
-        });
-
-        deleteButton.setOnAction(event -> {
-            User selected = userTable.getSelectionModel().getSelectedItem();
-            if (selected != null) {
-                deleteUser(selected);
-            }
-        });
-    }
-
-    private void setupTableSelection() {
-        userTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            boolean itemSelected = newSelection != null;
-            viewButton.setDisable(!itemSelected);
-            editButton.setDisable(!itemSelected);
-            deleteButton.setDisable(!itemSelected);
-        });
-    }
 
     private void showError(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -334,43 +362,119 @@ public class AddUserController {
         }
     }
 
-    @FXML
-    private void handleEditUser() {
-        User selectedUser = userTable.getSelectionModel().getSelectedItem();
-        if (selectedUser != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo/editUserDialog.fxml"));
-                Parent root = loader.load();
-                EditUserDialogController controller = loader.getController();
-                controller.setUser(selectedUser);
-                controller.setUserService(userService);
 
-                Stage dialogStage = new Stage();
-                dialogStage.setTitle("Edit User");
-                dialogStage.initModality(Modality.APPLICATION_MODAL);
-                dialogStage.initStyle(StageStyle.UNDECORATED);
-                dialogStage.setScene(new Scene(root));
-                
-                dialogStage.setOnCloseRequest(event -> {
-                    loadUserData(); // Refresh the table when dialog is closed
-                });
-                
-                dialogStage.showAndWait();
-            } catch (IOException e) {
-                showError("Error", "Could not load edit user dialog", e.getMessage());
-            }
-        } else {
-            showError("Error", "User Selection Required", "Please select a user to edit");
+
+
+
+    @FXML
+    private void handleLogout() {
+        try {
+            // Clear the session
+            sessionManager.clearSession();
+
+            // Close current window
+            Stage stage = (Stage) logoutButton.getScene().getWindow();
+            stage.close();
+
+            // Show login window
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo/login.fxml"));
+            Parent root = loader.load();
+
+            Stage loginStage = new Stage();
+            loginStage.setTitle("Login");
+            loginStage.setScene(new Scene(root));
+            loginStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Error", "Failed to logout");
         }
     }
 
+    private void showError(String title, String message) {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
     @FXML
-    private void handleDeleteButton() {
-        User selectedUser = userTable.getSelectionModel().getSelectedItem();
-        if (selectedUser != null) {
-            deleteUser(selectedUser);
-        } else {
-            showAlert("Error", "No User Selected", "Please select a user to delete", Alert.AlertType.WARNING);
+    private void handleExportPDF() {
+        try {
+            // Create file chooser
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save PDF");
+            fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
+            );
+            
+            // Set default filename with timestamp
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+            fileChooser.setInitialFileName("users_" + timestamp + ".pdf");
+            
+            // Show save dialog
+            Stage stage = (Stage) userTable.getScene().getWindow();
+            File file = fileChooser.showSaveDialog(stage);
+            
+            if (file != null) {
+                // Create PDF document
+                PdfWriter writer = new PdfWriter(file);
+                PdfDocument pdf = new PdfDocument(writer);
+                Document document = new Document(pdf);
+                
+                // Add title
+                Paragraph title = new Paragraph("User List Report")
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setFontSize(20)
+                    .setBold();
+                document.add(title);
+                
+                // Add timestamp
+                Paragraph date = new Paragraph("Generated on: " + 
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setFontSize(12);
+                document.add(date);
+                
+                // Add empty line
+                document.add(new Paragraph("\n"));
+                
+                // Create table
+                Table table = new Table(UnitValue.createPercentArray(5)).useAllAvailableWidth();
+                
+                // Add table headers
+                table.addHeaderCell(new Cell().add(new Paragraph("ID")).setBold());
+                table.addHeaderCell(new Cell().add(new Paragraph("Username")).setBold());
+                table.addHeaderCell(new Cell().add(new Paragraph("Email")).setBold());
+                table.addHeaderCell(new Cell().add(new Paragraph("Role")).setBold());
+                table.addHeaderCell(new Cell().add(new Paragraph("Status")).setBold());
+                
+                // Add user data
+                for (User user : userList) {
+                    table.addCell(new Cell().add(new Paragraph(String.valueOf(user.getId()))));
+                    table.addCell(new Cell().add(new Paragraph(user.getUsername())));
+                    table.addCell(new Cell().add(new Paragraph(user.getEmail())));
+                    table.addCell(new Cell().add(new Paragraph(user.getRole())));
+                    table.addCell(new Cell().add(new Paragraph(user.isActive() ? "Active" : "Inactive")));
+                }
+                
+                document.add(table);
+                
+                // Add summary
+                document.add(new Paragraph("\n"));
+                Paragraph summary = new Paragraph("Total Users: " + userList.size())
+                    .setTextAlignment(TextAlignment.RIGHT)
+                    .setItalic();
+                document.add(summary);
+                
+                // Close document
+                document.close();
+                
+                showSuccess("Success", "PDF exported successfully!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Error", "Failed to export PDF", e.getMessage());
         }
     }
 }

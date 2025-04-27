@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.paint.Color?>
+
+<BorderPane fx:id="root" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controllers.ClientDashboardController"
+      style="-fx-background-color: #f5f7fa;">
+    
+    <!-- Left Sidebar -->
+    <left>
+        <VBox style="-fx-background-color: #2c3e50; -fx-padding: 20;" prefWidth="250">
+            <!-- User Profile Section -->
+            <VBox alignment="CENTER" spacing="10" style="-fx-padding: 20 0 20 0;">
+                <Label fx:id="userAvatar" text="👤" style="-fx-font-size: 48;"/>
+                <Label fx:id="userNameLabel" style="-fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold;"/>
+                <Label fx:id="userRoleLabel" style="-fx-text-fill: #bdc3c7; -fx-font-size: 14;"/>
+            </VBox>
+            
+            <Separator style="-fx-background-color: #34495e;"/>
+            
+            <!-- Navigation Menu -->
+            <VBox spacing="10" style="-fx-padding: 20 0;">
+                <Button fx:id="dashboardButton" text="Dashboard" 
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 10 20;"
+                        onAction="#handleDashboard"/>
+                <Button fx:id="profileButton" text="My Profile" 
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 10 20;"
+                        onAction="#handleEditProfile"/>
+                <Button fx:id="passwordButton" text="Change Password" 
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 10 20;"
+                        onAction="#handleChangePassword"/>
+            </VBox>
+            
+            <Region VBox.vgrow="ALWAYS"/>
+            
+            <!-- Logout Button -->
+            <Button fx:id="logoutButton" text="Logout" 
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;"
+                    onAction="#handleLogout"/>
+        </VBox>
+    </left>
+    
+    <!-- Main Content -->
+    <center>
+        <VBox spacing="20" style="-fx-padding: 20;">
+            <!-- Welcome Section -->
+            <HBox alignment="CENTER_LEFT" style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 10;">
+                <VBox>
+                    <Label fx:id="welcomeLabel" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                    <Label text="Welcome back to your dashboard" style="-fx-text-fill: #7f8c8d;"/>
+                </VBox>
+            </HBox>
+            
+            <!-- Dashboard Content -->
+            <GridPane hgap="20" vgap="20">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+                
+                <!-- User Information Card -->
+                <VBox style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;" 
+                      GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label text="User Information" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                    <VBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                        <Label text="Username:" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;"/>
+                        <Label fx:id="usernameLabel" style="-fx-text-fill: #2c3e50;"/>
+                        <Label text="Email:" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;"/>
+                        <Label fx:id="emailLabel" style="-fx-text-fill: #2c3e50;"/>
+                        <Label text="Role:" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;"/>
+                        <Label fx:id="roleLabel" style="-fx-text-fill: #2c3e50;"/>
+                    </VBox>
+                </VBox>
+                
+                <!-- Quick Actions Card -->
+                <VBox style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;" 
+                      GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label text="Quick Actions" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                    <VBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                        <Button fx:id="editProfileButton" text="Edit Profile" 
+                                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;"
+                                onAction="#handleEditProfile"/>
+                        <Button fx:id="changePasswordButton" text="Change Password" 
+                                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;"
+                                onAction="#handleChangePassword"/>
+                    </VBox>
+                </VBox>
+            </GridPane>
+        </VBox>
+    </center>
+</BorderPane> 
