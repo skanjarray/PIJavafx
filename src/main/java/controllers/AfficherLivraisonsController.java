@@ -24,7 +24,7 @@ public class AfficherLivraisonsController extends BaseController {
 
     @FXML
     public void initialize() {
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        //idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         produitColumn.setCellValueFactory(new PropertyValueFactory<>("produit"));
         poidsColumn.setCellValueFactory(new PropertyValueFactory<>("poids"));
         dateColumn.setCellValueFactory(cell -> javafx.beans.binding.Bindings.createStringBinding(() ->

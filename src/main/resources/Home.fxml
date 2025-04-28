@@ -31,7 +31,7 @@
     <!-- Top Header Bar -->
     <top>
         <HBox styleClass="header-bar">
-            <Label text="EcoRecycle" styleClass="app-title"/>
+            <Label text="EcoTounsi" styleClass="app-title"/>
             <Region HBox.hgrow="ALWAYS" />
             <Label text="Système de Gestion de Recyclage" styleClass="app-subtitle"/>
         </HBox>
@@ -47,7 +47,7 @@
 
                 <!-- Welcome Section -->
                 <VBox alignment="CENTER" spacing="15">
-                    <Label text="Bienvenue dans EcoRecycle" styleClass="welcome-title"/>
+                    <Label text="Bienvenue dans EcoTounsi" styleClass="welcome-title"/>
                     <Label text="Système de Gestion pour le Recyclage Durable" styleClass="welcome-subtitle"/>
                 </VBox>
 
@@ -121,7 +121,7 @@
     <!-- Footer -->
     <bottom>
         <HBox styleClass="footer-bar">
-            <Label text="© 2024 EcoRecycle - Système de Gestion" styleClass="footer-text"/>
+            <Label text="© 2024 EcoTounsi - Système de Gestion" styleClass="footer-text"/>
             <Region HBox.hgrow="ALWAYS" />
             <Label text="v1.0" styleClass="footer-text"/>
         </HBox>

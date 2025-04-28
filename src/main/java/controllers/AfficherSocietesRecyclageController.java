@@ -29,7 +29,7 @@ public class AfficherSocietesRecyclageController extends BaseController {
     @FXML
     public void initialize() {
         // Set up table columns
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+       // idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
         adresseColumn.setCellValueFactory(new PropertyValueFactory<>("adresse"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
