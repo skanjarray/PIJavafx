@@ -24,12 +24,6 @@ public class AjouterLivraisonController extends BaseController {
     private LivraisonService livraisonService = new LivraisonService();
     private SocieteRecyclageService societeService = new SocieteRecyclageService();
 
-    // Update these with your actual email credentials
-    private final String EMAIL_USERNAME = "your.actual.email@gmail.com"; // Replace with your actual email
-    private final String EMAIL_PASSWORD = "your-actual-app-password"; // Use app password for Gmail
-    private final String EMAIL_HOST = "smtp.gmail.com";
-    private final int EMAIL_PORT = 587;
-
     @FXML
     public void initialize() {
         // Load SocieteRecyclage data into the ComboBox
@@ -89,14 +83,8 @@ public class AjouterLivraisonController extends BaseController {
                 String fullPath = QRCodeGenerator.generateQRCodeForLivraison(livraison, qrCodePath);
 
                 if (fullPath != null) {
-                    // Send email with QR code
-                    EmailService emailService = new EmailService(
-                            EMAIL_USERNAME,
-                            EMAIL_PASSWORD,
-                            EMAIL_HOST,
-                            EMAIL_PORT,
-                            true,
-                            true);
+                    // Send email with QR code using the updated EmailService
+                    EmailService emailService = new EmailService();
 
                     String subject = "EcoRecycle - Confirmation de Livraison #" + livraison.getId();
                     String body = "Bonjour,\n\n" +

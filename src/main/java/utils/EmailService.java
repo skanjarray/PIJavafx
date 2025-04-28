@@ -16,6 +16,7 @@ public class EmailService {
     private final boolean auth;
     private final boolean starttls;
 
+    // Constructeur avec paramètres
     public EmailService(String username, String password, String host, int port, boolean auth, boolean starttls) {
         this.username = username;
         this.password = password;
@@ -23,6 +24,16 @@ public class EmailService {
         this.port = port;
         this.auth = auth;
         this.starttls = starttls;
+    }
+
+    // Constructeur par défaut avec vos identifiants
+    public EmailService() {
+        this.username = "aziz.azizi@edu.isetcom.tn";
+        this.password = "xrqwkardocrswhld";
+        this.host = "smtp.gmail.com";
+        this.port = 587;
+        this.auth = true;
+        this.starttls = true;
     }
 
     public boolean sendEmailWithAttachment(String to, String subject, String body, String attachmentPath, String attachmentName) {
@@ -33,6 +44,8 @@ public class EmailService {
             props.put("mail.smtp.port", port);
             props.put("mail.smtp.auth", auth);
             props.put("mail.smtp.starttls.enable", starttls);
+            props.put("mail.smtp.ssl.trust", host);
+            props.put("mail.smtp.ssl.protocols", "TLSv1.2");
 
             // Create a session with authentication
             Session session = Session.getInstance(props, new Authenticator() {
@@ -41,6 +54,9 @@ public class EmailService {
                     return new PasswordAuthentication(username, password);
                 }
             });
+
+            // Enable debug mode for troubleshooting
+            session.setDebug(true);
 
             // Create a message
             Message message = new MimeMessage(session);
@@ -57,11 +73,13 @@ public class EmailService {
             multipart.addBodyPart(messageBodyPart);
 
             // Add attachment
-            messageBodyPart = new MimeBodyPart();
-            DataSource source = new FileDataSource(attachmentPath);
-            messageBodyPart.setDataHandler(new DataHandler(source));
-            messageBodyPart.setFileName(attachmentName);
-            multipart.addBodyPart(messageBodyPart);
+            if (attachmentPath != null && !attachmentPath.isEmpty()) {
+                messageBodyPart = new MimeBodyPart();
+                DataSource source = new FileDataSource(attachmentPath);
+                messageBodyPart.setDataHandler(new DataHandler(source));
+                messageBodyPart.setFileName(attachmentName != null ? attachmentName : "attachment");
+                multipart.addBodyPart(messageBodyPart);
+            }
 
             // Set the content
             message.setContent(multipart);
@@ -75,5 +93,10 @@ public class EmailService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    // Méthode simplifiée pour envoyer un email sans pièce jointe
+    public boolean sendEmail(String to, String subject, String body) {
+        return sendEmailWithAttachment(to, subject, body, null, null);
     }
 }

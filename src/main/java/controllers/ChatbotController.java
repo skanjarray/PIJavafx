@@ -72,6 +72,7 @@ public class ChatbotController extends BaseController implements Initializable {
 
         TextFlow textFlow = new TextFlow();
         textFlow.getStyleClass().add("user-message");
+        textFlow.setMaxWidth(300); // Limit width to force wrapping
 
         Text text = new Text(message);
         text.setStyle("-fx-fill: white;");
@@ -107,6 +108,7 @@ public class ChatbotController extends BaseController implements Initializable {
 
         TextFlow textFlow = new TextFlow();
         textFlow.getStyleClass().add("bot-message");
+        textFlow.setMaxWidth(300); // Limit width to force wrapping
 
         Text text = new Text(message);
         text.setStyle("-fx-fill: #333333;");
@@ -119,6 +121,7 @@ public class ChatbotController extends BaseController implements Initializable {
         scrollPane.setVvalue(1.0);
     }
 
+    // Rest of the code remains the same...
     private void initializeKnowledgeBase() {
         // General Recycling
         knowledgeBase.put("recyclage", "Le recyclage est le processus de transformation des déchets en nouveaux produits. Il permet de réduire la quantité de déchets envoyés aux décharges, de préserver les ressources naturelles et de diminuer les émissions de gaz à effet de serre. Que voulez-vous savoir de plus sur le recyclage ?");
@@ -149,10 +152,20 @@ public class ChatbotController extends BaseController implements Initializable {
 
         // Tunisia specific
         knowledgeBase.put("tunisie", "La Tunisie fait face à des défis importants en matière de gestion des déchets. Le pays produit environ 2,8 millions de tonnes de déchets solides par an. Des initiatives comme 'Tunisie Recyclage' et 'Green Tunisia' travaillent à améliorer les infrastructures de recyclage.");
+
+        // Map related
+        knowledgeBase.put("carte", "Vous pouvez consulter notre carte interactive des sociétés de recyclage en Tunisie. Allez dans la section 'Carte des Sociétés' dans le menu de navigation.");
+        knowledgeBase.put("map", "Notre application dispose d'une carte interactive qui vous permet de localiser les sociétés de recyclage en Tunisie. Accédez-y via le menu 'Carte des Sociétés'.");
     }
 
     private String processMessage(String message) {
         String lowerMessage = message.toLowerCase();
+
+        // Check for map-related queries
+        if (lowerMessage.contains("carte") || lowerMessage.contains("map") ||
+                lowerMessage.contains("localiser") || lowerMessage.contains("trouver")) {
+            return "Vous pouvez accéder à notre carte interactive des sociétés de recyclage en Tunisie en cliquant sur 'Carte des Sociétés' dans le menu de navigation. Cette carte vous permettra de localiser facilement les sociétés de recyclage près de chez vous.";
+        }
 
         // Check for specific question patterns
         if (lowerMessage.contains("comment recycler") || lowerMessage.contains("recycler")) {
