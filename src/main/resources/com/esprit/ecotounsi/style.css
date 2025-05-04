@@ -1,0 +1,42 @@
+/* style.css */
+.root {
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 10;
+}
+
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+.table-view {
+    -fx-border-color: #dcdcdc;
+    -fx-border-width: 1;
+}
+
+.table-cell {
+    -fx-padding: 5px;
+}
+
+.text-field {
+    -fx-font-size: 14px;
+    -fx-border-color: #4CAF50;
+}
+
+.combo-box {
+    -fx-font-size: 14px;
+    -fx-border-color: #4CAF50;
+}
+
+.alert {
+    -fx-background-color: #f2f2f2;
+    -fx-font-size: 14px;
+}
+

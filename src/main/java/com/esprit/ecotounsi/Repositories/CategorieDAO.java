@@ -1,4 +1,6 @@
-package com.esprit.ecotounsi;
+package com.esprit.ecotounsi.Repositories;
+
+import com.esprit.ecotounsi.Models.Categorie;
 
 import java.sql.*;
 import java.util.ArrayList;

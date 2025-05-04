@@ -1,4 +1,4 @@
-package com.esprit.ecotounsi;
+package com.esprit.ecotounsi.Repositories;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,9 +11,9 @@ public class DatabaseConnection {
     public static Connection getConnection() throws SQLException {
         if (conn == null || conn.isClosed()) { // Vérifie si la connexion est déjà fermée
             // URL de connexion, utilisateur et mot de passe
-            String url = "jdbc:mysql://localhost:3306/esprit?useSSL=false&serverTimezone=UTC";; // Remplace par l'URL de ta base
-            String user = "root"; // Remplace par ton utilisateur
-            String pwd = ""; // Remplace par ton mot de passe
+            String url = "jdbc:mysql://localhost:3306/esprit?useSSL=false&serverTimezone=UTC";; // Remplace par l'URL de ma base
+            String user = "root"; // Remplace par mon utilisateur
+            String pwd = ""; // Remplace par mon mot de passe
 
             try {
                 // Charger le driver JDBC si nécessaire (pas toujours requis avec les versions modernes)

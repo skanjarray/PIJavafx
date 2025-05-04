@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.image.ImageView?>
+
+<?import javafx.scene.effect.DropShadow?>
+<VBox spacing="10" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.esprit.ecotounsi.Controllers.ProduitController">
+
+    <!-- Navbar -->
+    <HBox spacing="20" style="-fx-padding: 10; -fx-background-color: #4CAF50; -fx-alignment: center;">
+        <!-- Bouton Accueil -->
+        <Button text="Accueil" onAction="#allerVersFrontOffice" style="-fx-text-fill: white; -fx-background-color: #388E3C; -fx-font-size: 14px; -fx-padding: 10px 15px;"
+                onMouseEntered="#handleHover" onMouseExited="#handleExit"/>
+        <!-- Bouton Gestion des catégories -->
+        <Button text="Catégories" onAction="#allerVersCategorie" style="-fx-text-fill: white; -fx-background-color: #388E3C; -fx-font-size: 14px; -fx-padding: 10px 15px;"
+                onMouseEntered="#handleHover" onMouseExited="#handleExit"/>
+    </HBox>
+
+    <Label text="Mon Dashboard - Gestion des Produits " style="
+        -fx-font-size: 24px;
+        -fx-font-weight: bold;
+        -fx-text-fill: #333;
+        -fx-alignment: center;
+        -fx-padding: 10 0 10 0;
+        " maxWidth="1.7976931348623157E308"
+           alignment="CENTER"
+    />
+
+
+    <!-- Formulaire -->
+    <TableView fx:id="tableView" prefHeight="200">
+        <columns>
+            <TableColumn fx:id="nomCol" text="Nom"/>
+            <TableColumn fx:id="uniteCol" text="Unité"/>
+            <TableColumn fx:id="quantiteCol" text="Quantité"/>
+            <TableColumn fx:id="categorieCol" text="Catégorie"/>
+        </columns>
+    </TableView>
+
+    <TextField fx:id="nomField" promptText="Nom du produit"/>
+    <TextField fx:id="uniteField" promptText="Unité du produit"/>
+    <TextField fx:id="quantiteField" promptText="Quantité du produit"/>
+    <ComboBox fx:id="categorieComboBox" promptText="Sélectionner une catégorie"/>
+
+    <TextField fx:id="emailField" promptText="Adresse e-mail"/>
+
+    <HBox spacing="15" alignment="center" style="-fx-padding: 10;">
+        <Button text="Ajouter" onAction="#ajouterProduit" style="
+        -fx-background-color: #66BB6A;
+        -fx-text-fill: white;
+        -fx-font-size: 14px;
+        -fx-background-radius: 10;
+        -fx-padding: 8 20;
+        -fx-cursor: hand;
+    ">
+            <effect>
+                <DropShadow color="#A5D6A7" radius="5" offsetX="0" offsetY="2"/>
+            </effect>
+        </Button>
+
+        <Button text="Supprimer" onAction="#supprimerProduit" style="
+        -fx-background-color: #EF5350;
+        -fx-text-fill: white;
+        -fx-font-size: 14px;
+        -fx-background-radius: 10;
+        -fx-padding: 8 20;
+        -fx-cursor: hand;
+    ">
+            <effect>
+                <DropShadow color="#FFCDD2" radius="5" offsetX="0" offsetY="2"/>
+            </effect>
+        </Button>
+
+        <Button text="Mettre à jour" onAction="#mettreAJourProduit" style="
+        -fx-background-color: #42A5F5;
+        -fx-text-fill: white;
+        -fx-font-size: 14px;
+        -fx-background-radius: 10;
+        -fx-padding: 8 20;
+        -fx-cursor: hand;
+    ">
+            <effect>
+                <DropShadow color="#90CAF9" radius="5" offsetX="0" offsetY="2"/>
+            </effect>
+        </Button>
+    </HBox>
+
+</VBox>

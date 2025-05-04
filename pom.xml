@@ -125,6 +125,26 @@
         </dependency>
 
 
+            <!-- Jakarta Mail API -->
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>jakarta.mail</artifactId>
+                <version>2.0.1</version>
+            </dependency>
+
+            <!-- Activation Framework (important pour gérer les pièces jointes, les contenus MIME, etc.) -->
+            <dependency>
+                <groupId>org.eclipse.angus</groupId>
+                <artifactId>angus-activation</artifactId>
+                <version>2.0.1</version>
+            </dependency>
+
+        <!-- Dépendance pour JFoenix (Material Design) -->
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>9.0.10</version> <!-- Ou la version que tu utilises -->
+        </dependency>
 
     </dependencies>
 
@@ -168,5 +188,6 @@
                 </executions>
             </plugin>
         </plugins>
+
     </build>
 </project>

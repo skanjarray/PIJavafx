@@ -1,4 +1,4 @@
-package com.esprit.ecotounsi;
+package com.esprit.ecotounsi.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

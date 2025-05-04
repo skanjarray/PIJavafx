@@ -1,13 +1,18 @@
-package com.esprit.ecotounsi;
+package com.esprit.ecotounsi.Controllers;
 
+import com.esprit.ecotounsi.Models.Categorie;
+import com.esprit.ecotounsi.EcotounsiApplication;
+import com.esprit.ecotounsi.Repositories.CategorieDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -118,7 +123,7 @@ public class CategorieController {
     public void Retourner(ActionEvent event) {
         try {
             Stage stage = (Stage) nomField.getScene().getWindow();
-            HelloApplication app = new HelloApplication();
+            EcotounsiApplication app = new EcotounsiApplication();
             app.start(stage);
         } catch (Exception e) {
             System.err.println("Erreur lors du retour à l'écran principal : " + e.getMessage());
@@ -137,4 +142,49 @@ public class CategorieController {
         nomField.clear();
         descriptionField.clear();
     }
+
+    @FXML
+    private void allerVersProduit(ActionEvent event) {
+        try {
+            // Récupération du Stage à partir du bouton cliqué
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Chargement de l'interface Produit.fxml
+            Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/ecotounsi/Produit.fxml"));
+
+            // Application de la nouvelle scène
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            System.err.println("Erreur lors du chargement de la page Produit : " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void allerVersFrontOffice(ActionEvent event) {
+        try {
+            // Obtenir la scène à partir de l'événement (via le bouton)
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Charger l'interface Front-Office
+            Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/ecotounsi/ProduitClientSimple.fxml"));
+
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            System.err.println("Erreur lors du chargement de l'interface Front-Office : " + ex.getMessage());
+        }
+    }
+
+
+    public void handleHover(javafx.scene.input.MouseEvent event) {
+        Button button = (Button) event.getSource();
+        button.setStyle("-fx-background-color: #2C6B2F; -fx-text-fill: white;");
+    }
+
+    public void handleExit(MouseEvent event) {
+        Button button = (Button) event.getSource();
+        button.setStyle("-fx-background-color: #388E3C; -fx-text-fill: white;");
+    }
+
 }

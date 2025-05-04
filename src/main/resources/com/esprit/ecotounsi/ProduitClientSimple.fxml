@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.paint.Color?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.esprit.ecotounsi.Controllers.ProduitClientSimpleController"
+            prefHeight="450.0" prefWidth="700.0"
+            style="-fx-background-color: #f9f9f9;">
+
+    <!-- Bouton Mon Compte avec icône à droite -->
+    <Button fx:id="btnCompte"
+            text="Mon Compte"
+            layoutY="20.0"
+            AnchorPane.rightAnchor="20.0"
+            style="-fx-background-color: transparent; -fx-text-fill: #2E8B57; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px;"
+            onAction="#handleCompte" />
+
+
+    <VBox alignment="TOP_CENTER" spacing="15"
+          AnchorPane.topAnchor="60.0"
+          AnchorPane.leftAnchor="20.0"
+          AnchorPane.rightAnchor="20.0">
+
+        <Label text="🛒 Produits disponibles"
+               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2E8B57;" />
+
+        <!-- Barre de recherche -->
+        <TextField fx:id="searchField"
+                   promptText="Rechercher un produit..."
+                   prefWidth="400"
+                   style="-fx-background-radius: 10; -fx-padding: 6; -fx-border-color: #ccc; -fx-border-radius: 10;" />
+
+        <ListView fx:id="listViewProduits" prefHeight="280" prefWidth="600"
+                  style="-fx-border-color: #ccc; -fx-border-radius: 5; -fx-background-radius: 5;" />
+
+        <Button fx:id="btnActualiser"
+                text="🔄 Actualiser la liste"
+                prefWidth="220"
+                style="-fx-background-color: #2E8B57; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 8px;"
+                onAction="#handleActualiser" />
+    </VBox>
+
+</AnchorPane>

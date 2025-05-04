@@ -1,26 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" spacing="10" prefHeight="400" prefWidth="500"
-      xmlns="http://javafx.com/javafx/23.0.1"
+<VBox xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.esprit.ecotounsi.CategorieController">
+      fx:controller="com.esprit.ecotounsi.Controllers.CategorieController"
+      spacing="15"
+      style="-fx-background-color: #f0f4f8; -fx-padding: 30;">
 
-    <TableView fx:id="categorieTable" prefHeight="200" prefWidth="450">
+    <!-- Navbar -->
+    <HBox spacing="20" style="-fx-padding: 10; -fx-background-color: #4CAF50; -fx-alignment: center;">
+        <Button text="Accueil" onAction="#allerVersFrontOffice"
+                style="-fx-text-fill: white; -fx-background-color: #388E3C; -fx-font-size: 14px; -fx-padding: 10px 15px;"
+                onMouseEntered="#handleHover" onMouseExited="#handleExit"/>
+        <Button text="Produits" onAction="#allerVersProduit"
+                style="-fx-text-fill: white; -fx-background-color: #388E3C; -fx-font-size: 14px; -fx-padding: 10px 15px;"
+                onMouseEntered="#handleHover" onMouseExited="#handleExit"/>
+    </HBox>
+
+    <!-- Titre -->
+    <Label text="Mon Dashboard - Gestion des Catégories"
+           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"
+           alignment="CENTER" maxWidth="1.7976931348623157E308"/>
+
+    <!-- TableView -->
+    <TableView fx:id="categorieTable" prefHeight="200" prefWidth="550">
         <columns>
-            <TableColumn fx:id="nomColonne" text="Nom" prefWidth="150"/>
-            <TableColumn fx:id="descriptionColonne" text="Description" prefWidth="300"/>
+            <TableColumn fx:id="nomColonne" text="Nom" prefWidth="200"/>
+            <TableColumn fx:id="descriptionColonne" text="Description" prefWidth="350"/>
         </columns>
     </TableView>
 
-    <TextField fx:id="nomField" promptText="Nom de la catégorie" />
-    <TextField fx:id="descriptionField" promptText="Description de la catégorie" />
+    <!-- Formulaire -->
+    <HBox spacing="10" alignment="CENTER">
+        <TextField fx:id="nomField" promptText="Nom de la catégorie"
+                   style="-fx-pref-width: 250; -fx-background-radius: 10; -fx-padding: 10;"/>
+        <TextField fx:id="descriptionField" promptText="Description"
+                   style="-fx-pref-width: 250; -fx-background-radius: 10; -fx-padding: 10;"/>
+    </HBox>
 
-    <Button text="Ajouter" onAction="#ajouterCategorie" />
-    <Button text="Modifier" onAction="#modifierCategorie" />
-    <Button text="Supprimer" onAction="#supprimerCategorie" />
-    <Button text="Retourner" onAction="#Retourner" />
+    <!-- Boutons d'action -->
+    <HBox spacing="15" alignment="CENTER" style="-fx-padding: 10;">
+        <Button text="Ajouter" onAction="#ajouterCategorie" style="
+            -fx-background-color: #66BB6A;
+            -fx-text-fill: white;
+            -fx-font-size: 14px;
+            -fx-background-radius: 10;
+            -fx-padding: 8 20;
+            -fx-cursor: hand;">
+            <effect>
+                <DropShadow color="#A5D6A7" radius="5" offsetX="0" offsetY="2"/>
+            </effect>
+        </Button>
+
+        <Button text="Modifier" onAction="#modifierCategorie" style="
+            -fx-background-color: #FFA726;
+            -fx-text-fill: white;
+            -fx-font-size: 14px;
+            -fx-background-radius: 10;
+            -fx-padding: 8 20;
+            -fx-cursor: hand;">
+            <effect>
+                <DropShadow color="#FFE0B2" radius="5" offsetX="0" offsetY="2"/>
+            </effect>
+        </Button>
+
+        <Button text="Supprimer" onAction="#supprimerCategorie" style="
+            -fx-background-color: #EF5350;
+            -fx-text-fill: white;
+            -fx-font-size: 14px;
+            -fx-background-radius: 10;
+            -fx-padding: 8 20;
+            -fx-cursor: hand;">
+            <effect>
+                <DropShadow color="#FFCDD2" radius="5" offsetX="0" offsetY="2"/>
+            </effect>
+        </Button>
+
+        <Button text="Retourner" onAction="#Retourner" style="
+            -fx-background-color: #42A5F5;
+            -fx-text-fill: white;
+            -fx-font-size: 14px;
+            -fx-background-radius: 10;
+            -fx-padding: 8 20;
+            -fx-cursor: hand;">
+            <effect>
+                <DropShadow color="#90CAF9" radius="5" offsetX="0" offsetY="2"/>
+            </effect>
+        </Button>
+    </HBox>
 
 </VBox>

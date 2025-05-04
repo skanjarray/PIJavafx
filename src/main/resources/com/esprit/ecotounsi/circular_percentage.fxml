@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Arc?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.ArcType?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.esprit.ecotounsi.Controllers.CircularPercentageController">
+
+    <!-- Conteneur principal pour centrer les éléments -->
+    <HBox spacing="40" alignment="CENTER">
+
+        <!-- Conteneur de graphique circulaire -->
+        <VBox spacing="20" alignment="CENTER">
+
+            <!-- Arc de fond (complément de l'arc principal) -->
+            <Arc fx:id="backgroundArc" centerX="200" centerY="200" radiusX="100" radiusY="100" startAngle="90" length="270"
+                 fill="LIGHTGRAY" type="ROUND"/>
+
+            <!-- Arc principal représentant le pourcentage -->
+            <Arc fx:id="percentageArc" centerX="200" centerY="200" radiusX="100" radiusY="100" startAngle="90" length="0"
+                 fill="GREEN" type="ROUND"/>
+
+            <!-- Annotation pour le pourcentage -->
+            <Line fx:id="percentageLine" startX="200" startY="200" stroke="BLACK" strokeWidth="2" visible="false"/>
+            <Text fx:id="annotationText" x="0" y="0" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-fill: black;" visible="false"/>
+
+        </VBox>
+
+        <!-- Légende à droite du cercle -->
+        <VBox spacing="10" alignment="TOP_LEFT">
+            <Text text="Légende:" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-fill: black;"/>
+            <VBox fx:id="legend" spacing="10">
+                <!-- Légende dynamique des catégories et pourcentages -->
+            </VBox>
+        </VBox>
+
+    </HBox>
+
+    <!-- Section de boutons pour la navigation -->
+    <VBox fx:id="buttonBox" spacing="15" alignment="CENTER">
+        <Button text="Aller vers la gestion de catégorie" onAction="#allerVersCategorie"/>
+        <Button text="Retourner à la gestion des produits" onAction="#allerVersProduits"/>
+    </VBox>
+
+</StackPane>

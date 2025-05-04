@@ -1,14 +1,21 @@
-package com.esprit.ecotounsi;
+package com.esprit.ecotounsi.Repositories;
+
+import com.esprit.ecotounsi.Models.Categorie;
+import com.esprit.ecotounsi.Models.Produit;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProduitDAO {
 
+    private List<Produit> produits;
+
     // Méthode pour récupérer tous les produits avec un objet Categorie, même ceux sans catégorie
     public List<Produit> getAllProduits() {
-        String query = "SELECT p.id, p.nom, p.unite, p.quantite, c.id AS categorie_id, c.nom AS categorie_nom " +
+        String query = "SELECT p.id, p.nom, p.unite, p.quantite, p.favori, c.id AS categorie_id, c.nom AS categorie_nom " +
                 "FROM produit p " +
                 "LEFT JOIN categorie c ON p.categorie_id = c.id";  // Utilisation de LEFT JOIN pour inclure les produits sans catégorie
         List<Produit> produits = new ArrayList<>();
@@ -23,6 +30,7 @@ public class ProduitDAO {
                 produit.setNom(rs.getString("nom"));  // Récupère le nom du produit
                 produit.setUnite(rs.getString("unite"));  // Récupère l'unité
                 produit.setQuantite(rs.getInt("quantite"));  // Récupère la quantité
+                produit.setFavori(rs.getBoolean("favori")); // Récupère favori du produit
 
                 // Vérifier si la catégorie existe (dans le cas d'un produit sans catégorie, elle sera NULL)
                 if (rs.getObject("categorie_id") != null) {
@@ -94,6 +102,28 @@ public class ProduitDAO {
         return categories;
     }
 
+    public Map<String, Integer> getCategoryProductCounts() {
+        String query = "SELECT COALESCE(c.nom, 'Sans catégorie') AS categorie_nom, COUNT(p.id) AS product_count " +
+                "FROM categorie c " +
+                "LEFT JOIN produit p ON c.id = p.categorie_id " +
+                "GROUP BY COALESCE(c.nom, 'Sans catégorie')";
+
+        Map<String, Integer> categoryProductCounts = new HashMap<>();
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                categoryProductCounts.put(rs.getString("categorie_nom"), rs.getInt("product_count"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return categoryProductCounts;
+    }
 
     // Insertion dans la BD : Méthode pour ajouter un produit
     public boolean addProduit(Produit produit) {
@@ -176,5 +206,19 @@ public class ProduitDAO {
             return false;
         }
     }
+
+    // Mettre à jour l'état "favori" d'un produit
+    public void updateFavori(int idProduit, boolean estFavori) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "UPDATE produit SET favori = ? WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setBoolean(1, estFavori);
+            stmt.setInt(2, idProduit);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

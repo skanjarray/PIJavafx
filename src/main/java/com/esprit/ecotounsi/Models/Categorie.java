@@ -1,4 +1,4 @@
-package com.esprit.ecotounsi;
+package com.esprit.ecotounsi.Models;
 
 public class Categorie {
     private int id;

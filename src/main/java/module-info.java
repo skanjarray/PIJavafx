@@ -11,7 +11,14 @@ module com.esprit.ecotounsi {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires jakarta.mail; // ➔ Ajoute cette ligne pour autoriser l'utilisation de Jakarta Mail
 
     opens com.esprit.ecotounsi to javafx.fxml;
     exports com.esprit.ecotounsi;
+    exports com.esprit.ecotounsi.Repositories;
+    opens com.esprit.ecotounsi.Repositories to javafx.fxml;
+    exports com.esprit.ecotounsi.Controllers;
+    opens com.esprit.ecotounsi.Controllers to javafx.fxml;
+    exports com.esprit.ecotounsi.Models;
+    opens com.esprit.ecotounsi.Models to javafx.fxml;
 }
