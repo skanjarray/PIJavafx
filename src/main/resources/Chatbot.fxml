@@ -7,10 +7,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChatbotController">
+<BorderPane prefHeight="700.0" prefWidth="900.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChatbotController">
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" styleClass="header-bar" BorderPane.alignment="CENTER">
             <children>
@@ -24,6 +25,11 @@
                 </Label>
                 <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                     <children>
+                        <Button fx:id="showMapButton" mnemonicParsing="false" styleClass="primary-button" text="Afficher la carte">
+                            <HBox.margin>
+                                <Insets right="10.0" />
+                            </HBox.margin>
+                        </Button>
                         <Button mnemonicParsing="false" onAction="#goToHome" styleClass="outline-button" text="Retour">
                             <HBox.margin>
                                 <Insets right="20.0" />
@@ -84,8 +90,12 @@
         <HBox styleClass="footer-bar" BorderPane.alignment="CENTER">
             <children>
                 <Label styleClass="footer-text" text="© 2024 EcoRecycle - Système de Gestion" />
-                <Label styleClass="footer-text" text="v1.0" HBox.hgrow="ALWAYS" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label styleClass="footer-text" text="v1.0" />
             </children>
+            <padding>
+                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+            </padding>
         </HBox>
     </bottom>
 </BorderPane>

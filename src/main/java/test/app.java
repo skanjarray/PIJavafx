@@ -1,31 +1,40 @@
 package test;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utils.ChatbotService;
 
 public class app extends Application {
 
-    // Modify the start method to ensure full screen mode is properly set
     @Override
     public void start(Stage primaryStage) throws Exception {
+        // Charger la vue principale
         Parent root = FXMLLoader.load(getClass().getResource("/Home.fxml"));
-        primaryStage.setTitle("Gestion des Livraisons & Sociétés");
+        primaryStage.setTitle("EcoTounsi - Système de Gestion de Recyclage");
 
-        // Set the application to open in full screen
+        // Configurer le mode plein écran
         primaryStage.setMaximized(true);
 
-        // Create a scene with appropriate size that will scale well in full screen
+        // Créer une scène avec une taille appropriée qui s'adaptera bien en plein écran
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
 
-        // Add a listener to ensure full screen state is maintained
+        // Ajouter un écouteur pour s'assurer que l'état plein écran est maintenu
         primaryStage.maximizedProperty().addListener((obs, wasMaximized, isNowMaximized) -> {
             if (!isNowMaximized) {
                 primaryStage.setMaximized(true);
             }
+        });
+
+        // Configurer la fermeture propre de l'application
+        primaryStage.setOnCloseRequest(event -> {
+            // Arrêter les services en arrière-plan
+            ChatbotService.getInstance().shutdown();
+            Platform.exit();
         });
 
         primaryStage.show();

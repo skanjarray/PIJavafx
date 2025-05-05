@@ -81,8 +81,8 @@ public class SocieteRecyclageService {
         try
                 (
                         Connection con = MyDataBase.getInstance().getConnection();
-             Statement stmt = con.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+                        Statement stmt = con.createStatement();
+                        ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -102,6 +102,6 @@ public class SocieteRecyclageService {
             System.err.println("❌ Error while fetching SocieteRecyclage: " + e.getMessage());
         }
         System.out.println("list         return societes;\n"+societes);
-       return societes;
+        return societes;
     }
 }
